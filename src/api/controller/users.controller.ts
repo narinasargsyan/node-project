@@ -1,10 +1,11 @@
 import * as bcrypt from "bcrypt";
 import { models } from "../../db";
+import { Response, Request } from "express";
 import authService from "../services/auth.service";
 
 class UserController {
 
-  signUp = async (req, res) => {
+  signUp = async (req: Request, res: Response) => {
     try {
       const { firstName, lastName, email, password } = req.body;
       const salt = await bcrypt.genSalt(10);
@@ -22,7 +23,7 @@ class UserController {
     }
   };
 
-  signIn = async (req, res) => {
+  signIn = async (req: Request, res: Response) => {
     try {
       const { email, password } = req.body;
       const isUserExists = await models.Users.findOne({ where: { email } });

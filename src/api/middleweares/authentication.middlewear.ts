@@ -1,7 +1,8 @@
 import authService from "../services/auth.service";
+import { Response, Request, NextFunction} from "express";
 
 class AuthenticationMiddleware {
-  async authenticate(req, res, next) {
+  async authenticate(req: Request & { payload: string , accessToken: string }, res: Response, next: NextFunction) {
     try {
       const { authorization } = req.headers;
       if (!authorization) {
