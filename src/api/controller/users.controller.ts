@@ -57,7 +57,7 @@ class UserController {
       const {userId} = req.payload;
       const {text} = req.body;
       const response = await axios({
-        baseURL: 'http://localhost:3020/create/article',
+        baseURL: 'http://localhost:3020/user/article/create',
         method: 'POST',
         headers: {
           X_AUTH: process.env.X_AUTH,
@@ -81,7 +81,7 @@ class UserController {
       const { userId } = req.payload;
       const { text } = req.body;
       const response = await axios({
-        baseURL: 'http://localhost:3020/update/article',
+        baseURL: 'http://localhost:3020/user/article/update',
         method: 'PUT',
         headers: {
           X_AUTH: process.env.X_AUTH,
