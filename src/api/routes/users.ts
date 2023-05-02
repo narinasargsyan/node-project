@@ -13,4 +13,7 @@ userRouter.post("/sign-in", validate("signInUserSchema"), user.signIn);
 
 userRouter.use(authenticate);
 
+userRouter.post("/create", user.createArticle);
+userRouter.put("/update", user.updateArticle);
+
 export { userRouter };

@@ -24,6 +24,7 @@
     "@typescript-eslint/parser": "^4.29.1",
     "async-redis": "^2.0.0",
     "aws-sdk": "^2.1318.0",
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "bluebird": "^3.7.2",
     "cors": "^2.8.5",
