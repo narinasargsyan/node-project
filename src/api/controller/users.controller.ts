@@ -17,7 +17,7 @@ class UserController {
         email,
         password: hashedPassword,
       });
-      res.send("You have successfully registered!");
+      return res.send("You have successfully registered!");
     } catch (err) {
       res.status(400).send("Something went wrong");
       console.log("error=>", err);
@@ -44,7 +44,7 @@ class UserController {
       const result = {
         accessToken,
       };
-      res.status(200).send(result);
+      return res.status(200).send(result);
     } catch (err) {
       console.log("err", err);
       res.status(400).send("Something went wrong");
@@ -52,23 +52,23 @@ class UserController {
     }
   };
 
-  createArticle = async (req: Request & { payload: { userId: number } }, res: Response) => {
+  createArticle = async (req: Request & { payload: { id: number } }, res: Response) => {
     try {
-      const {userId} = req.payload;
-      const {text} = req.body;
+      const { id } = req.payload;
+      const { text } = req.body;
       const response = await axios({
-        baseURL: 'http://localhost:3020/user/article/create',
+        baseURL: 'http://localhost:3020/articles/api/user/create',
         method: 'POST',
         headers: {
           X_AUTH: process.env.X_AUTH,
           'Content-Type': 'application/json',
         },
         data: {
-          userId,
+          userId: id,
           text,
         },
       });
-      res.send({response: response.data});
+      return res.send({response: response.data});
     } catch (err) {
       console.log("err", err);
       res.status(400).send("Something went wrong");
@@ -76,23 +76,24 @@ class UserController {
     }
   };
 
-  updateArticle = async (req: Request & { payload: { userId: number } }, res: Response) => {
+  updateArticle = async (req: Request & { payload: { id: number } }, res: Response) => {
     try{
-      const { userId } = req.payload;
-      const { text } = req.body;
+      const { id } = req.payload;
+      const { text, articleId } = req.body;
       const response = await axios({
-        baseURL: 'http://localhost:3020/user/article/update',
+        baseURL: 'http://localhost:3020/articles/api/user/update',
         method: 'PUT',
         headers: {
           X_AUTH: process.env.X_AUTH,
           'Content-Type': 'application/json',
         },
         data: {
-          userId,
+          userId: id,
           text,
+          articleId,
         },
       });
-      res.send({ response: response.data });
+      return res.send({ response: response.data });
     } catch (err) {
       console.log("err", err);
       res.status(400).send("Something went wrong");
