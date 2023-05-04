@@ -1,6 +1,9 @@
-import authService from "../services/auth.service";
-import { Response, Request, NextFunction} from "express";
+import AuthService from "common_auth";
 
+import { Response, Request, NextFunction} from "express";
+import db from "../../db/models";
+
+const authService = new AuthService(db.redis)
 class AuthenticationMiddleware {
   async authenticate(req: Request & { payload: string , accessToken: string }, res: Response, next: NextFunction) {
     try {
