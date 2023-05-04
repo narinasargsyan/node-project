@@ -11,6 +11,7 @@ class AuthenticationMiddleware {
       if (!authorization) {
         res.status(401).send("Token not provided");
       }
+
       const token = authorization.split("Bearer ")[1].trim();
 
       if (!token) {

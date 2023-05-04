@@ -4,8 +4,7 @@ import db from "../../db/models"
 import { Response, Request } from "express";
 import axios from 'axios';
 import AuthService from "common_auth";
-const authService = new AuthService(models.)
-import authService from "../services/auth.service";
+const authService = new AuthService(db.redis)
 
 class UserController {
 
