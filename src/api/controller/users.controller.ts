@@ -39,7 +39,7 @@ class UserController {
         return;
       }
 
-      const auth = { email, id: String(isUserExists.id), isAdmin: false };
+      const auth = { email, id: String(isUserExists.id), isUser: true };
       const accessToken = await authService.signAccessToken(auth);
 
       const result = {
