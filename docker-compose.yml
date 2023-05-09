@@ -1,6 +1,7 @@
 version: "3.9"
 services:
   postgres:
+    container_name: "user_container"
     image: postgres:latest
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -14,10 +15,35 @@ services:
   redis:
     image: redis:latest
     ports:
-      - "6382:6379"
+      - "6379:6379"
+    networks:
+      - myNetwork
+  api_user:
+    build:
+      context: ./
+      target: base
+    volumes:
+      - .:/src
+    command: npm run start
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    environment:
+      NODE_ENV: development
+      DEBUG: nodejs-docker-express:*
+      DB_HOST: localhost
+      DB_PORT: 5432
+      DB_USERNAME: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      DB_NAME: ${POSTGRES_DB}
+      APP_PORT: 3010
+      JWT_SECRET: ${JWT_SECRET}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
 
+networks:
+  myNetwork:
+    driver: bridge
 volumes:
   postgres_data:
-
-
-
